@@ -1,0 +1,23 @@
+name: "Coin flip"
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_status:
+        description: "Does one of the jobs succeed?"
+        required: true
+        type: boolean
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Job status"
+        if: github.event.inputs.job_status == 'true'
+        run: echo "Doing something here"
+      - name: "Call workflow if things are good"
+        if: github.event.inputs.job_status == 'true'
+        uses: ./.github/workflows/callable.yml
+        with:
+          name: "Coinflip"
