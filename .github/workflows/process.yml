@@ -3,23 +3,26 @@ name: "Coin flip"
 on:
   workflow_dispatch:
     inputs:
-      job_status:
-        description: "Does one of the jobs succeed?"
+      dependent_job:
         required: true
-        type: boolean
+        type: choice
+        options:
+          - Passing
+          - Failing
 
 jobs:
   process:
     runs-on: ubuntu-latest
     steps:
-      - name: "Job status"
-        if: ${{ github.event.inputs.job_status }}
-        run: echo "Job status is true"
-      - name: "Step 2"
-        run: echo "Doing something here"
+      - name: "Something passing"
+        if: ${{ github.event.inputs.dependent_job == 'Passing' }}
+        run: echo "This job passes"
+      - name: "Something failing"
+        if: ${{ github.event.inputs.dependent_job == 'Failing' }}
+        run: exit 1
 
   call_workflow:
-    if: ${{ github.event.inputs.job_status }}
+    needs: process
     uses: ./.github/workflows/callable.yml
     with:
       name: "Coinflip"
