@@ -11,13 +11,15 @@ on:
 jobs:
   process:
     runs-on: ubuntu-latest
-
     steps:
       - name: "Job status"
-        if: github.event.inputs.job_status
+        if: ${{ github.event.inputs.job_status }}
+        run: echo "Job status is true"
+      - name: "Step 2"
         run: echo "Doing something here"
-      - name: "Call workflow if things are good"
-        if: github.event.inputs.job_status
-        uses: ./.github/workflows/callable.yml
-        with:
-          name: "Coinflip"
+
+  call_workflow:
+    if: ${{ github.event.inputs.job_status }}
+    uses: ./.github/workflows/callable.yml
+    with:
+      name: "Coinflip"
