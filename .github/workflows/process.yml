@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: "Job status"
-        if: github.event.inputs.job_status == 'true'
+        if: github.event.inputs.job_status
         run: echo "Doing something here"
       - name: "Call workflow if things are good"
-        if: github.event.inputs.job_status == 'true'
+        if: github.event.inputs.job_status
         uses: ./.github/workflows/callable.yml
         with:
           name: "Coinflip"
