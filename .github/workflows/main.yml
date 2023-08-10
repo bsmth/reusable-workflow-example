@@ -1,0 +1,20 @@
+name: "Main workflow"
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "A string to pass to the next workflow"
+        required: true
+        default: "World"
+
+jobs:
+  print_hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Main step
+        run: echo "Hello ${{ github.event.inputs.name }} from the main workflow!"
+  call-workflow:
+    uses: ./.github/workflows/callable.yml
+    with:
+      name: ${{ github.event.inputs.name }}
