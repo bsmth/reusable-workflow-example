@@ -1,0 +1,27 @@
+name: "Coin flip"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  make_calculation:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.make_calculation.outputs.result }}
+    steps:
+      - name: Coin flip
+        id: make_calculation
+        # see https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions
+        run: |
+          if [[ $(( RANDOM % 2 )) -eq 0 ]]; then
+            echo "::set-output name=result::success"
+          else
+            echo "::set-output name=result::failure"
+          fi
+
+  next_steps:
+    needs: make_calculation
+    if: ${{ needs.make_calculation.outputs.result == 'success' }}
+    uses: ./.github/workflows/callable.yml
+    with:
+      name: "Baguette"
