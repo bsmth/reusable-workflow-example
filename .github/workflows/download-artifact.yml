@@ -11,7 +11,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: my-artifact-${{ github.sha }}
-          path: artifact
+
+      - name: Extract Artifact
+        run: |
+          tar -xvf artifact.tar
 
       - name: List Files
         run: |
