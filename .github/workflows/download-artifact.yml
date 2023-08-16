@@ -16,7 +16,7 @@ jobs:
 
       - name: Extract Artifact
         run: |
-          tar -xvf artifact.tar
+          tar -xvf artifact.tar -C artifact
 
       - name: List Files
         run: |
