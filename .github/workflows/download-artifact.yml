@@ -11,14 +11,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: my-artifact-${{ github.sha }}
-          path: artifact.zip
-
-      - name: Extract Artifact
-        # github zips the artifact on download, so we need
-        # to unzip it first whether it's been compressed or not before uploading
-        run: |
-          unzip artifact.zip
-          tar -xvf artifact.tar
+          path: artifact
 
       - name: List Files
         run: |
