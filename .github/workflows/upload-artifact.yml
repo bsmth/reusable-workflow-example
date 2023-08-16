@@ -1,0 +1,25 @@
+name: "Create artifact"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - up-download-artifact
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create artifact
+        run: mkdir -p path/to/artifact && echo hello > path/to/artifact/world.txt
+
+      - name: "Tar files"
+        run: tar -cvf artifact.tar path/to/artifact
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact-${{ github.sha }}
+          path: artifact.tar
+
+  call-workflow:
+    uses: ./.github/workflows/download-artifact.yml
