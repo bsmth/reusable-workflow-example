@@ -25,4 +25,5 @@ jobs:
         run: sleep 10
 
   call-workflow:
+    needs: upload-artifact
     uses: ./.github/workflows/download-artifact.yml
