@@ -21,5 +21,8 @@ jobs:
           name: my-artifact-${{ github.sha }}
           path: artifact.tar
 
+      - name: "Sleep"
+        run: sleep 10
+
   call-workflow:
     uses: ./.github/workflows/download-artifact.yml
