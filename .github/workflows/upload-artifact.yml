@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - up-download-artifact
+      - main
 
 jobs:
   upload-artifact:
@@ -20,9 +20,6 @@ jobs:
         with:
           name: my-artifact-${{ github.sha }}
           path: artifact.tar
-
-      - name: "Sleep"
-        run: sleep 10
 
   call-workflow:
     needs: upload-artifact

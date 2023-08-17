@@ -18,4 +18,4 @@ jobs:
 
       - name: List Files
         run: |
-          ls -la artifact
+          ls -la path/to/artifact
