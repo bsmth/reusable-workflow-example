@@ -1,4 +1,4 @@
-name: "Download Artifact"
+name: "Download PR artifact"
 
 on:
   workflow_call:
@@ -10,7 +10,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: my-artifact-${{ github.sha }}
+          name: my-artifact-${{ github.event.pull_request.number }}
 
       - name: Extract Artifact
         run: |

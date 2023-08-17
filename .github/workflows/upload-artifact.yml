@@ -1,8 +1,7 @@
-name: "Create artifact"
+name: "Create PR artifact"
 
 on:
-  workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -11,14 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create artifact
-        run: mkdir -p path/to/artifact && echo hello > path/to/artifact/world.txt
+        run: |
+          mkdir -p path/to/artifact 
+          echo "Hello from ${{ github.event.pull_request.number }}" > path/to/artifact/hello.txt
 
       - name: "Tar files"
         run: tar -cvf artifact.tar path/to/artifact
 
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact-${{ github.sha }}
+          name: my-artifact-${{ github.event.pull_request.number }}
           path: artifact.tar
 
   call-workflow:
