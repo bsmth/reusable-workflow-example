@@ -1,0 +1,21 @@
+name: "Download Artifact"
+
+on:
+  workflow_call:
+
+jobs:
+  download-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact-${{ github.sha }}
+
+      - name: Extract Artifact
+        run: |
+          tar -xvf artifact.tar
+
+      - name: List Files
+        run: |
+          ls -la path/to/artifact
